@@ -1,0 +1,1 @@
+A text-based (playing on output-consol) card game that can be played interactively with a computer. It is played with 2 standard decks of cards. The goal of the game is to reach 21 points or get as close to 21 points as possible. If the computer's score is higher than yours, you lose.
