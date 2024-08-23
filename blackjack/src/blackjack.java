@@ -1,7 +1,7 @@
 /*
 TO DO LIST
 ---------------------
-- 
+-
 - HighScore List
 _
 
@@ -14,6 +14,8 @@ import java.util.Scanner;
 
 public class blackjack {
     private static int bet;
+    private static int age;
+
 
     public static int calculateHandValue(List<String> hand) {
         int value = 0;
@@ -52,8 +54,8 @@ public class blackjack {
         List<String> splitHand2 = new ArrayList<>();
 
 
-        playerHand.add(deck.remove(deck.size() - 1));
-        playerHand.add(deck.remove(deck.size() - 1));
+        playerHand.add("2");
+        playerHand.add("2");
         dealerHand.add(deck.remove(deck.size() - 1));
         dealerHand.add(deck.remove(deck.size() - 1));
 
@@ -136,7 +138,7 @@ public class blackjack {
                     break;
                 }else if (action.equals("S")) {
                     if (playerHand.get(0).equals(playerHand.get(1))) {
-                        split(playerHand, dealerHand, splitHand1, splitHand2, deck, dealerValue, balance);
+                        balance = split(playerHand, dealerHand, splitHand1, splitHand2, deck, dealerValue, balance);
                         break;
                     } else {
                     System.out.println("Your cards are not equal. You cannot split your hand!");
@@ -166,7 +168,7 @@ public class blackjack {
         System.out.println("Dealer Hand: [X, " + dealerHand.get(1) + "]");
 
         // first split hand
-        System.out.println("For first split hand:");
+        System.out.println("For first split hand: " +splitHand1+" = "+ splitHandValue1);
         if (splitHandValue1 == 21 && dealerValue < 21 ){
             System.out.println("First split hand won with Blackjack!");
             balance += (bet+(bet/2));
@@ -237,7 +239,7 @@ public class blackjack {
             }
         }
         // second split hand
-        System.out.println("For second split hand:");
+        System.out.println("For second split hand: "+ splitHand2+" = " + splitHandValue2);
         if (splitHandValue2 == 21 && dealerValue < 21){
             System.out.println("Second split hand won with Blackjack!");
             balance += (bet+(bet/2));
@@ -264,28 +266,29 @@ public class blackjack {
                     System.out.println("Dealer Hand: " + dealerHand + ", Sum: " + dealerValue);
 
                     if (dealerValue > 21 || splitHandValue2 > dealerValue) {
-                        if (balanca_after_first_split_hand_play>balance)
+                        if (balanca_after_first_split_hand_play<balance)
                             System.out.println("Congratulations, you won! With your 2 hand.");
                         else if (balanca_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand won the game.");
-                        } else if (balanca_after_first_split_hand_play < balance ) {
+                        } else if (balanca_after_first_split_hand_play > balance ) {
                             System.out.println("Your first hand lost the game. But you won with your second hand.");
                         }
                         balance += bet;
+                        System.out.println("Dealer Hand: "+dealerHand+" = "+dealerValue);
                     } else if (splitHandValue2 == dealerValue) {
-                        if (balanca_after_first_split_hand_play>balance)
+                        if (balanca_after_first_split_hand_play<balance)
                             System.out.println("Your first hand won. Your second hand draw.");
                         else if (balanca_after_first_split_hand_play == balance) {
                             System.out.println("Draw!");
-                        } else if (balanca_after_first_split_hand_play < balance) {
+                        } else if (balanca_after_first_split_hand_play > balance) {
                             System.out.println("Your first hand lost. Your second hand draw!");
                         }
                     } else {
-                        if (balanca_after_first_split_hand_play > balance )
+                        if (balanca_after_first_split_hand_play < balance )
                             System.out.println("You won first hand and lost your second hand. Did not win anything!");
                         else if (balanca_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand lost the game.");
-                        } else if (balanca_after_first_split_hand_play < balance ) {
+                        } else if (balanca_after_first_split_hand_play > balance ) {
                             System.out.println("Sorry, you lost with your 2 hands.");
                         }
                         balance -= bet;
@@ -295,6 +298,8 @@ public class blackjack {
                     splitHand2.add(deck.remove(deck.size() - 1));
                     splitHandValue2 = calculateHandValue(splitHand2);
                     System.out.println("Player Hand: " + splitHand2 + ", Sum: " + splitHandValue2);
+                    System.out.println("Dealer Hand: " + dealerHand + ", Sum: " + dealerValue);
+
 
                     if (splitHandValue2 > 21) {
                         if (balanca_after_first_split_hand_play > balance )
@@ -315,11 +320,11 @@ public class blackjack {
                     System.out.println("Dealer Hand: " + dealerHand + ", Sum: " + dealerValue);
 
                     if (dealerValue > 21 || splitHandValue2 > dealerValue) {
-                        if (balanca_after_first_split_hand_play>balance)
+                        if (balanca_after_first_split_hand_play<balance)
                             System.out.println("Congratulations, you won! With your 2 hand.");
                         else if (balanca_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand won the game.");
-                        } else if (balanca_after_first_split_hand_play < balance ) {
+                        } else if (balanca_after_first_split_hand_play > balance ) {
                             System.out.println("Your first hand lost the game. But you won with your second hand.");
                         }
                         balance += bet * 2;
@@ -347,8 +352,7 @@ public class blackjack {
                 }
             }
         }
-
-    return balance;
+        return balance;
     }
 
     public static void main(String[] args) {
@@ -356,8 +360,18 @@ public class blackjack {
 
         System.out.print("Username: ");
         String playerName = scanner.next();
-        System.out.print("Age: ");
-        int age = scanner.nextInt();
+        boolean yas_girisi = false;
+
+        while (!yas_girisi){
+            System.out.print("Age: ");
+            try {
+                age = scanner.nextInt();
+                yas_girisi = true;
+            } catch (Exception e){
+                System.out.println("You entered an incorrect value, please try again.");
+                scanner.nextLine();
+            }
+        }
         int balance = 50;
 
         if (age >= 18) {
@@ -367,8 +381,19 @@ public class blackjack {
                 String playAgain = scanner.next().toUpperCase();
 
                 if (playAgain.equals("Y")) {
-                    System.out.print("Bet: ");
-                    bet = scanner.nextInt();
+                    boolean sayi_girisi = false;
+
+                    while (!sayi_girisi) {
+                        System.out.print("Bet: ");
+                        try {
+                            bet = scanner.nextInt();
+                            sayi_girisi = true;
+                        } catch (Exception e) {
+                            System.out.println("You entered an incorrect value, please try again.");
+                            scanner.nextLine();
+                        }
+                    }
+
                     if (bet > balance){
                         System.out.println("The bet entered cannot be higher than the amount of money you have in your hand.");
                         continue;
