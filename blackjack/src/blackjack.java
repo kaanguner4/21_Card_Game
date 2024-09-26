@@ -1,11 +1,4 @@
-/*
-TO DO LIST
----------------------
--
-- HighScore List
-_
 
- */
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +47,8 @@ public class blackjack {
         List<String> splitHand2 = new ArrayList<>();
 
 
-        playerHand.add("2");
-        playerHand.add("2");
+        playerHand.add(deck.remove(deck.size() - 1));
+        playerHand.add(deck.remove(deck.size() - 1));
         dealerHand.add(deck.remove(deck.size() - 1));
         dealerHand.add(deck.remove(deck.size() - 1));
 
@@ -154,7 +147,7 @@ public class blackjack {
     public static int split(List<String>playerHand, List<String>dealerHand, List<String>splitHand1, List<String>splitHand2, List<String>deck, int dealerValue ,int balance ){
         Scanner scanner = new Scanner(System.in);
 
-        int balanca_after_first_split_hand_play = balance;
+        int balance_after_first_split_hand_play = balance;
 
         splitHand1.add(playerHand.get(0));
         splitHand1.add(deck.remove(deck.size() - 1));
@@ -266,29 +259,29 @@ public class blackjack {
                     System.out.println("Dealer Hand: " + dealerHand + ", Sum: " + dealerValue);
 
                     if (dealerValue > 21 || splitHandValue2 > dealerValue) {
-                        if (balanca_after_first_split_hand_play<balance)
+                        if (balance_after_first_split_hand_play<balance)
                             System.out.println("Congratulations, you won! With your 2 hand.");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand won the game.");
-                        } else if (balanca_after_first_split_hand_play > balance ) {
+                        } else if (balance_after_first_split_hand_play > balance ) {
                             System.out.println("Your first hand lost the game. But you won with your second hand.");
                         }
                         balance += bet;
                         System.out.println("Dealer Hand: "+dealerHand+" = "+dealerValue);
                     } else if (splitHandValue2 == dealerValue) {
-                        if (balanca_after_first_split_hand_play<balance)
+                        if (balance_after_first_split_hand_play<balance)
                             System.out.println("Your first hand won. Your second hand draw.");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Draw!");
-                        } else if (balanca_after_first_split_hand_play > balance) {
+                        } else if (balance_after_first_split_hand_play > balance) {
                             System.out.println("Your first hand lost. Your second hand draw!");
                         }
                     } else {
-                        if (balanca_after_first_split_hand_play < balance )
+                        if (balance_after_first_split_hand_play < balance )
                             System.out.println("You won first hand and lost your second hand. Did not win anything!");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand lost the game.");
-                        } else if (balanca_after_first_split_hand_play > balance ) {
+                        } else if (balance_after_first_split_hand_play > balance ) {
                             System.out.println("Sorry, you lost with your 2 hands.");
                         }
                         balance -= bet;
@@ -302,11 +295,11 @@ public class blackjack {
 
 
                     if (splitHandValue2 > 21) {
-                        if (balanca_after_first_split_hand_play > balance )
+                        if (balance_after_first_split_hand_play > balance )
                             System.out.println("You won first hand and your second hand exceeded 21. Did not win anything!");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand exceeded 21.");
-                        } else if (balanca_after_first_split_hand_play < balance ) {
+                        } else if (balance_after_first_split_hand_play < balance ) {
                             System.out.println("Sorry, you lost with your 2 hands.");
                         }
                         balance -= bet * 2;
@@ -320,28 +313,28 @@ public class blackjack {
                     System.out.println("Dealer Hand: " + dealerHand + ", Sum: " + dealerValue);
 
                     if (dealerValue > 21 || splitHandValue2 > dealerValue) {
-                        if (balanca_after_first_split_hand_play<balance)
+                        if (balance_after_first_split_hand_play<balance)
                             System.out.println("Congratulations, you won! With your 2 hand.");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand won the game.");
-                        } else if (balanca_after_first_split_hand_play > balance ) {
+                        } else if (balance_after_first_split_hand_play > balance ) {
                             System.out.println("Your first hand lost the game. But you won with your second hand.");
                         }
                         balance += bet * 2;
                     } else if (splitHandValue2 == dealerValue) {
-                        if (balanca_after_first_split_hand_play>balance)
+                        if (balance_after_first_split_hand_play>balance)
                             System.out.println("Your first hand won. Your second hand draw.");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Draw!");
-                        } else if (balanca_after_first_split_hand_play < balance) {
+                        } else if (balance_after_first_split_hand_play < balance) {
                             System.out.println("Your first hand lost. Your second hand draw!");
                         }
                     } else {
-                        if (balanca_after_first_split_hand_play > balance )
+                        if (balance_after_first_split_hand_play > balance )
                             System.out.println("You won first hand and lost your second hand. Did not win anything!");
-                        else if (balanca_after_first_split_hand_play == balance) {
+                        else if (balance_after_first_split_hand_play == balance) {
                             System.out.println("Your first hand draw. Your second hand lost the game.");
-                        } else if (balanca_after_first_split_hand_play < balance ) {
+                        } else if (balance_after_first_split_hand_play < balance ) {
                             System.out.println("Sorry, you lost with your 2 hands.");
                         }
                         balance -= bet * 2;
